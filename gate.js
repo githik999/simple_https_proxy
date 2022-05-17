@@ -1,6 +1,12 @@
 const net = require('net')
 const client = require('./client')
 
-const server = net.createServer((socket)=>{
+const server = net.createServer().listen(1080)
+
+server.on('connection',(socket)=>{
     new client(socket)
-}).listen(1080)
+})
+
+server.on('error',(err)=>{
+    console.log(err.message)
+})
